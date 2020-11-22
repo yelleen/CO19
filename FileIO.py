@@ -1,3 +1,4 @@
+import os
 class Person:
     def __init__(self, name, age, gender, phone_number, address1, address2, time_in, time_out, roomNumber):
         self.name = name
@@ -19,3 +20,16 @@ def AddPersonToFile(fileName, person): # in order to write file and add person
     dataStr = person.toString()
     dataFile.write(dataStr)
     dataFile.close()
+
+def read():
+    people_list = []
+    people_txt = open("people.txt","r")
+    line = person_txt.readline
+    while line:
+        per_list[] = line.split(' ')
+        
+
+
+
+def timeKnow(person):
+    timeList = [] 
