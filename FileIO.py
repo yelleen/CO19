@@ -19,3 +19,15 @@ def AddPersonToFile(fileName, person): # in order to write file and add person
     dataStr = person.toString()
     dataFile.write(dataStr)
     dataFile.close()
+
+def read():
+    people_list = open("people.txt","r")
+    line = person_list.readline
+
+def TimeSet(person):
+    time = []
+    return time # 시간, 분, 시간, 분
+
+def FuncTime(p):
+    t = [1,1,1,1]
+    return t
