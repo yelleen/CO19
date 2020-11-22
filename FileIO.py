@@ -1,3 +1,4 @@
+import os
 class Person:
     def __init__(self, name, age, gender, phone_number, address1, address2, time_in, time_out, roomNumber):
         self.name = name
@@ -29,6 +30,16 @@ def read():
         person = Person(per_list[0], per_list[1], ...)
         people_list.append(person)
     return people_list
+    people_txt = open("people.txt","r")
+    line = person_txt.readline
+    while line:
+        per_list[] = line.split(' ')
+        
+
+def timeKnow(person):
+    timeList = [] 
+    people_list = open("people.txt","r")
+    line = person_list.readline
 
 def TimeSet(person):
     time = []
