@@ -1,0 +1,4 @@
+import FileIO
+
+people = []
+
