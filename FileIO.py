@@ -21,8 +21,14 @@ def AddPersonToFile(fileName, person): # in order to write file and add person
     dataFile.close()
 
 def read():
-    people_list = open("people.txt","r")
-    line = person_list.readline
+    people_list = []
+    people_txt = open("Data/people.txt",'r')
+    line_list = person_txt.readlines()
+    for line in line_list:
+        per_list[] = line.split(' ')
+        person = Person(per_list[0], per_list[1], ...)
+        people_list.append(person)
+    return people_list
 
 def TimeSet(person):
     time = []

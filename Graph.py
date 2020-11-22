@@ -21,5 +21,5 @@ def CreateLineGraph(personList):
 def CreateCircleGraph(personList):
     ageZone = [0, 0, 0, 0, 0, 0, 0, 0]
     for p in personList:
-        ageZone[p.age // 10 - 1] += 1
+        ageZone[p.age // 10 - 1] += 1 # p.age: 10~80, if p is teenager/twenties, than the index of ageZone would be 0/1.
     return ageZone
