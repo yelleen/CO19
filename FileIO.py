@@ -29,7 +29,15 @@ def read():
         per_list[] = line.split(' ')
         
 
-
-
 def timeKnow(person):
     timeList = [] 
+    people_list = open("people.txt","r")
+    line = person_list.readline
+
+def TimeSet(person):
+    time = []
+    return time # 시간, 분, 시간, 분
+
+def FuncTime(p):
+    t = [1,1,1,1]
+    return t
