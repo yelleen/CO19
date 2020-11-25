@@ -21,19 +21,18 @@ def AddPersonToFile(fileName, person): # in order to write file and add person
     dataFile.write(dataStr)
     dataFile.close()
 
+
 def read():
     people_list = []
-    people_txt = open("Data/people.txt",'r')
-    line_list = person_txt.readlines()
-    for line in line_list:
-        per_list[] = line.split(' ')
-        person = Person(per_list[0], per_list[1], ...)
-        people_list.append(person)
-    return people_list
     people_txt = open("people.txt","r")
-    line = person_txt.readline
-    while line:
+    lines = people_txt.readlines
+    i = 0
+    for line in lines:
         per_list[] = line.split(' ')
+        list_name = "person" + i
+        list_name = Person(per_list[0], per_list[1], per_list[2], per_list[3], per_list[4], per_list[5], per_list[6], per_list[7], per_list[8])
+        people_list.append(list_name)
+        i += 1
         
 
 def timeKnow(person):
