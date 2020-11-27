@@ -22,7 +22,7 @@ def AddPersonToFile(fileName, person): # in order to write file and add person
     dataFile.close()
 
 
-def read_txt():
+def ReadTxt():
     people_list = []
     people_txt = open("people.txt","r")
     lines = people_txt.readlines
@@ -36,14 +36,9 @@ def read_txt():
     people_txt.close()
     return people_list
 
-def timeKnow(person):
-    timeList = [] 
-    people_list = open("people.txt","r")
-    line = person_list.readline
-
 def TimeSet(person_name):
     time = []
-    people_list = read_txt() #people배열의 획득 방법 토론(1. 인수에서 받기 2. 함수를 호출) 
+    people_list = ReadTxt() #people배열의 획득 방법 토론(1. 인수에서 받기 2. 함수를 호출) 
     time_in = " "
     time_out = " "
     for i in people_list:#해당 이름의 in/out시간을 문자열로 추출
@@ -60,6 +55,29 @@ def TimeSet(person_name):
     time.append(int(check_out[1]))
 
     return time # 시간, 분, 시간, 분
+
+def name_check(name):#이름 중복 체크
+    people_list = ReadTxt()
+    check = []
+    index = 0
+    for i in people_list:
+        if i.name == name:
+            check.append(index)
+        index += 1
+    if len(check) > 1:
+        return check
+    else:
+        return check.pop(0)
+
+def phone_num(index):#해당자의 전화번호(문자열) 출력
+    people_list = ReadTxt()
+    person_class = people_list[index]
+    return person_class.phone_number
+
+def PersonClass(index):#해당자의 class 반환
+    people_list = ReadTxt()
+    return people_list[index]
+
 
 def FuncTime(p):
     t = [1,1,1,1]
