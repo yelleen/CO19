@@ -1,4 +1,4 @@
-from FileIO import FuncTime
+from FileIO import TimeSet
 
 initTime = 10
 
