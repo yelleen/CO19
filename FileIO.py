@@ -36,15 +36,10 @@ def ReadTxt():
     people_txt.close()
     return people_list
 
-def TimeSet(person_name):
+def TimeSet(person):
     time = []
-    people_list = ReadTxt() #people배열의 획득 방법 토론(1. 인수에서 받기 2. 함수를 호출) 
-    time_in = " "
-    time_out = " "
-    for i in people_list:#해당 이름의 in/out시간을 문자열로 추출
-        if person_name == i.name:
-            time_in = i.time_in
-            time_out = i.time_out
+    time_in = person.time_in
+    time_out = person.time_out
 
     check_in = time_in.split(':')#추출한 문자열을 나눠서 time 배열에 int형으로 추가하기
     time.append(int(check_in[0]))
@@ -56,7 +51,7 @@ def TimeSet(person_name):
 
     return time # 시간, 분, 시간, 분
 
-def name_check(name):#이름 중복 체크
+def name_check(name,people_list):#이름 중복 체크
     people_list = ReadTxt()
     check = []
     index = 0
@@ -77,8 +72,3 @@ def phone_num(index):#해당자의 전화번호(문자열) 출력
 def PersonClass(index):#해당자의 class 반환
     people_list = ReadTxt()
     return people_list[index]
-
-
-def FuncTime(p):
-    t = [1,1,1,1]
-    return t
