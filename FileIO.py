@@ -77,8 +77,3 @@ def phone_num(index):#해당자의 전화번호(문자열) 출력
 def PersonClass(index):#해당자의 class 반환
     people_list = ReadTxt()
     return people_list[index]
-
-
-def FuncTime(p):
-    t = [1,1,1,1]
-    return t
