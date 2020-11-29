@@ -71,4 +71,8 @@ def phone_num(index):#해당자의 전화번호(문자열) 출력
 
 def PersonClass(index):#해당자의 class 반환
     people_list = ReadTxt()
+<<<<<<< HEAD
     return people_list[index]
+=======
+    return people_list[index]
+>>>>>>> 4f65093262c92a7ba63912428aadbb05d5d7fd87

@@ -1,4 +1,4 @@
-from FileIO import Person, FuncTime
+from FileIO import *
 
 def FilterByName(name, personList): # name: string_format"ddd", personList: list
     __people = []
@@ -25,7 +25,7 @@ def FilterByAddress(adr, personList): # name: adr_format"ddd ddd", personList: l
 def FilterByStay(time, personList): # tiem: list_size: 2, personList: list
     __people = []
     for p in personList:
-        timeList = FuncTime(p)
+        timeList = TimeSet(p)
         if timeList[0] <= time[0] and timeList[1] <= time[1]:
             if (timeList[2] > time[0]) or (timeList[2] == time[0] and timeList[3] >= time[1]):
                 __people.append(p)
