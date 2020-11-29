@@ -1,4 +1,5 @@
 import os
+from GUI_yelleen import fileName
 class Person:
     def __init__(self, name, age, gender, phone_number, address1, address2, time_in, time_out, roomNumber):
         self.name = name
@@ -14,27 +15,23 @@ class Person:
         personStr = self.name + ' ' + str(self.age) + ' ' + self.gender + ' ' + self.phone_number + ' ' + self.address1 + ' ' + self.address2 + ' ' + self.time_in + ' ' + self.time_out + ' ' + self.roomNumber + '\n'
         return personStr
 
-def AddPersonToFile(fileName, person): # in order to write file and add person
-    dataPath = "Data/" + fileName + ".txt"
-    dataFile = open(dataPath, 'a')
-    dataStr = person.toString()
-    dataFile.write(dataStr)
+def AddPersonToFile(fileName, pList): # in order to write file and add person
+    dataFile = open(fileName, 'a')
+    for p in pList:
+        pStr = p.toString()
+        dataFile.write(pStr)
     dataFile.close()
 
+def ReadText(fileName):
+    peopleStr = open(fileName, 'r')
+    lines = peopleStr.readlines
+    peopleStr.close()
+    return lines
 
-def ReadTxt():
-    people_list = []
-    people_txt = open("people.txt","r")
-    lines = people_txt.readlines
-    i = 0
-    for line in lines:
-        per_list = line.split(' ')
-        list_name = "people" + i
-        list_name = Person(per_list[0], per_list[1], per_list[2], per_list[3], per_list[4], per_list[5], per_list[6], per_list[7], per_list[8])
-        people_list.append(list_name)
-        i += 1
-    people_txt.close()
-    return people_list
+def StringToPerson(pstr, pList):
+    pe = pstr.split(' ')
+    p = Person(pe[0], pe[1], pe[2], pe[3], pe[4], pe[5], pe[6], pe[7], pe[8])
+    pList.append(p)
 
 def TimeSet(person):
     time = []
@@ -52,7 +49,7 @@ def TimeSet(person):
     return time # 시간, 분, 시간, 분
 
 def name_check(name,people_list):#이름 중복 체크
-    people_list = ReadTxt()
+    people_list = ReadText(fileName)
     check = []
     index = 0
     for i in people_list:
@@ -65,10 +62,10 @@ def name_check(name,people_list):#이름 중복 체크
         return check.pop(0)
 
 def phone_num(index):#해당자의 전화번호(문자열) 출력
-    people_list = ReadTxt()
+    people_list = ReadText(fileName)
     person_class = people_list[index]
     return person_class.phone_number
 
 def PersonClass(index):#해당자의 class 반환
-    people_list = ReadTxt()
+    people_list = ReadText(fileName)
     return people_list[index]
