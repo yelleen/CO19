@@ -11,7 +11,6 @@ window = Tk()
 window.title("CO19SEARCH")
 window.geometry("1280x720")
 window.resizable(False, False)
-window.configure(bg = '#ffffff')
 #EndRegion
 #Region Registering
 def CheckPhoneNumber():
@@ -146,44 +145,77 @@ def ShowGraph():
 #EndRegion
 #Region Widget Create
 #lbl: label, ent: entry, cbx: combobox, btn: button
-lbl_name = Label(window, text = "이름", width = 4, height = 1, font = "나눔고딕 -28", anchor="nw")
+lbl_name = Label(window, text = "이름", width = 4, height = 1, font = "나눔고딕 -28", anchor="sw")
 ent_name = Entry(window, width = 15, font = "나눔고딕 -28")
-lbl_age = Label(window, text = "나이", width = 4, height = 1, font = "나눔고딕 -28", anchor="nw")
+lbl_age = Label(window, text = "나이", width = 4, height = 1, font = "나눔고딕 -28", anchor="sw")
 cbx_age = ttk.Combobox(window, height = 15, values = age_tuple, font = "나눔고딕 -28")
-lbl_gender = Label(window, text = "성별", width = 4, height = 1, font = "나눔고딕 -28", anchor="nw")
+lbl_gender = Label(window, text = "성별", width = 4, height = 1, font = "나눔고딕 -28", anchor="sw")
 cbx_gender = ttk.Combobox(window, height = 15, values = gender_tuple, font = "나눔고딕 -28")
-lbl_phone_number = Label(window, text = "전화번호", width = 8, height = 1, font = "나눔고딕 -28", anchor="nw")
-ent_phone_number = Entry(window, width = 15, font = "나눔고딕 -28")
-lbl_address = Label(window, text = "주소", width = 4, height = 1, font = "나눔고딕 -28", anchor="nw")
+lbl_address = Label(window, text = "주소", width = 4, height = 1, font = "나눔고딕 -28", anchor="sw")
 cbx_address1 = ttk.Combobox(window, height = 15, values = addressA_tuple, font = "나눔고딕 -28")
 cbx_address2 = ttk.Combobox(window, height = 15, values = addressB_tuple, font = "나눔고딕 -28")
-lbl_time_in = Label(window, text = "들어온 시간", width = 8, height = 1, font = "나눔고딕 -28", anchor="nw")
+lbl_time_in = Label(window, text = "입장 시간", width = 8, height = 1, font = "나눔고딕 -27", anchor="sw")
 cbx_time_in_hour = ttk.Combobox(window, height = 15, values = hour_tuple, font = "나눔고딕 -28")
+lbl_cl1 = Label(window, text = ":", width = 4, height = 1, font = "나눔고딕 -28", anchor="center")
 cbx_time_in_min = ttk.Combobox(window, height = 15, values = min_tuple, font = "나눔고딕 -28")
-lbl_time_out = Label(window, text = "나간 시간", width = 8, height = 1, font = "나눔고딕 -28", anchor="nw")
+lbl_time_out = Label(window, text = "퇴장 시간", width = 8, height = 1, font = "나눔고딕 -27", anchor="sw")
+lbl_water = Label(window, text = "~", width = 4, height = 1, font = "나눔고딕 -28", anchor="center")
+lbl_cl2 = Label(window, text = ":", width = 4, height = 1, font = "나눔고딕 -28", anchor="center")
 cbx_time_out_hour = ttk.Combobox(window, height = 15, values = hour_tuple, font = "나눔고딕 -28")
 cbx_time_out_min = ttk.Combobox(window, height = 15, values = min_tuple, font = "나눔고딕 -28")
-lbl_room_number = Label(window, text = "방 번호", width = 4, height = 1, font = "나눔고딕 -28", anchor="nw")
+
+lbl_phone_number = Label(window, text = "전화번호", width = 8, height = 1, font = "나눔고딕 -28", anchor="sw")
+ent_phone_number = Entry(window, width = 15, font = "나눔고딕 -28")
+lbl_room_number = Label(window, text = "방 번호", width = 4, height = 1, font = "나눔고딕 -28", anchor="sw")
 cbx_room_number = ttk.Combobox(window, height = 15, values = room_tuple, font = "나눔고딕 -28")
-btn_register = Button(window, width = 20, command = CheckPhoneNumber)
-btn_find = Button(window, width = 20, command = Finding)
-btn_load = Button(window, width = 20, command = Loading)
-btn_save = Button(window, width = 20, command = Saving)
-btn_graph = Button(window, width = 20, command = ShowGraph)
+
+btn_register = Button(window, text = "등록하기", font = "나눔고딕 -27",width = 20, command = CheckPhoneNumber)
+btn_find = Button(window, text = "대상 찾기", font = "나눔고딕 -27",width = 20, command = Finding)
+btn_load = Button(window, text = "불러오기", font = "나눔고딕 -27",width = 20, command = Loading)
+btn_save = Button(window, text = "저장하기", font = "나눔고딕 -27",width = 20, command = Saving)
+btn_graph = Button(window, text = "그래프로 보여주기", font = "나눔고딕 -27",width = 20, command = ShowGraph)
 #EndRegion
 #Region Widget Place
+
 #3F
-lbl_name.place(x = 100, y = 100, width=100, height=30)
-ent_name.place(x = 100, y = 150, width=200, height=50)
-lbl_age.place(x = 400, y = 100, width=100, height=30)
-cbx_age.place(x = 400, y = 150, width=100, height=50)
-lbl_gender.place(x = 600, y = 100, width=100, height=30)
-cbx_gender.place(x = 600, y = 150, width=100, height=50)
+lbl_name.place(x = 50, y = 100, width=100, height=45)
+ent_name.place(x = 50, y = 150, width=200, height=50)
+
+lbl_age.place(x = 280, y = 100, width=100, height=45)
+cbx_age.place(x = 280, y = 150, width=100, height=50)
+
+lbl_gender.place(x = 410, y = 100, width=100, height=45)
+cbx_gender.place(x = 410, y = 150, width=100, height=50)
+
+lbl_address.place(x = 540, y = 100, width=100, height=45)
+cbx_address1.place(x = 540, y = 150, width=160, height=50)
+cbx_address2.place(x = 710, y = 150, width=160, height=50)
+
+lbl_time_in.place(x = 900, y = 100, width=150, height=45)
+cbx_time_in_hour.place(x = 900, y = 150, width=55, height=50)
+lbl_cl1.place(x = 955, y = 150, width=10, height=50)
+cbx_time_in_min.place(x = 965, y = 150, width=55, height=50)
+
+lbl_water.place(x = 1025, y = 150, width=20, height=50)
+
+lbl_time_out.place(x = 1050, y = 100, width=150, height=45)
+cbx_time_out_hour.place(x = 1050, y = 150, width=55, height=50)
+lbl_cl2.place(x = 1105, y = 150, width=10, height=50)
+cbx_time_out_min.place(x = 1115, y = 150, width=55, height=50)
+
 #2F
-lbl_phone_number.place(x = 100, y = 250, width=120, height=50)
-ent_phone_number.place(x = 100, y = 300, width=250, height=50)
+lbl_phone_number.place(x = 50, y = 250, width=120, height=45)
+ent_phone_number.place(x = 50, y = 300, width=250, height=50)
+lbl_room_number.place(x = 330, y = 250, width=100, height=45)
+cbx_room_number.place(x = 330, y = 300, width=100, height=50)
+
+btn_register.place(x = 470, y = 275, width=150, height=75)
+btn_find.place(x = 650, y = 275, width=150, height=75)
+btn_save.place(x = 840, y = 275, width=150, height=75)
+btn_load.place(x = 1030, y = 275, width=150, height=75)
+
 #1F
 #temp
-btn_graph.place(x = 400, y = 250, width=150, height=50)
+btn_graph.place(x = 960, y = 250, width=150, height=50)
 #EndRegion
 window.mainloop()
