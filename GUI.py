@@ -1,32 +1,81 @@
 from FileIO import Person, LoadFile, SaveFile, toPerson
 from GUI_Info import *
-from Filtering import FilterByName, FilterByPhoneNumber, FilterByAddress, FilterByStay
+from Filtering import FilterByName, FilterByPhoneNumber, FilterByStay
 from Graph import CreateBarGraph, CreateLineGraph, CreateCircleGraph
 from tkinter import Tk, Toplevel, ttk, messagebox, filedialog, Label, Entry, Button, Listbox, Canvas
 #Region Field
-isCorrect = True # to check phone number format
+isCorrect = False # to check phone number format
 #EndRegion
 #Region WindowCreate
 window = Tk()
 window.title("CO19SEARCH")
 window.geometry("1280x720")
 window.resizable(False, False)
+window.configure(bg = '#ffffff')
 #EndRegion
 #Region Registering
-def CheckPhoneNumber():
+def CheckError():
     global isCorrect
+
+    #Name checking..
+    name_string = str(ent_name.get())
+    if name_string == "":
+        isCorrect = False
+        messagebox.showinfo(title = "경고", message = "이름이 입력되지 않았습니다.")
+    #Age checking..
+    age_string = str(cbx_age.get())
+    if age_string == "":
+        isCorrect = False
+        messagebox.showinfo(title = "경고", message = "나이가 입력되지 않았습니다.")
+    elif int(age_string) < 1 or int(age_string) > 120:
+        isCorrect = False
+        messagebox.showinfo(title = "경고", message = "나이가 잘못 입력되었습니다.")
+    #Gender checking..
+    gender_string = str(cbx_gender.get())
+    if gender_string == "":
+        isCorrect = False
+        messagebox.showinfo(title = "경고", message = "성별이 입력되지 않았습니다.")
+    elif not (gender_string == "남성" or gender_string == "여성"):
+        isCorrect = False
+        messagebox.showinfo(title = "경고", message = "성별이 잘못 입력되었습니다.")
+    #Adress checking..
+    addressA_string = str(cbx_address1.get())
+    addressB_string = str(cbx_address2.get())
+    if addressA_string == "" or addressB_string == "":
+        isCorrect = False
+        messagebox.showinfo(title = "경고", message = "주소가 입력되지 않았습니다.")
+    #Time checking..
+    time_in_hour = str(cbx_time_in_hour.get())
+    time_in_min = str(cbx_time_in_min.get())
+    time_out_hour = str(cbx_time_out_hour.get())
+    time_out_min = str(cbx_time_out_min.get())
+    if time_in_hour == "" or time_in_min == "" or time_out_hour == "" or time_out_min == "":
+        isCorrect = False
+        messagebox.showinfo(title = "경고", message = "시간이 입력되지 않았습니다.")
+    elif int(time_in_hour) > int(time_out_hour):
+        isCorrect = False
+        messagebox.showinfo(title = "경고", message = "시간이 잘못 입력되었습니다.")
+    elif int(time_in_hour) == int(time_out_hour) and int(time_in_min) > int(time_out_min):
+        isCorrect = False
+        messagebox.showinfo(title = "경고", message = "시간이 잘못 입력되었습니다.")
+    #Phone number checking..
     phone_string = str(ent_phone_number.get())
-    if len(phone_string) != 13:
-        phone_string = False
-    else:
-        for i in range(13):
-            if phone_string[i] == '-' and (i == 3 or i == 8):
-                isCorrect = False
-            elif phone_string[i].isdigit():
-                isCorrect = False
-    if isCorrect == False:
+    if phone_string == "":
+        messagebox.showinfo(title = "경고", message = "전화번호가 입력되지 않았습니다.")
+    elif len(phone_string) != 13:
+        isCorrect = False
         messagebox.showinfo(title = "경고", message = "전화번호가 잘못 입력되었습니다.\n다시 입력해주세요.\n'010-####-####'")
     else:
+        for i in range(13):
+            if not phone_string[i].isdigit() and not (phone_string[i] == '-' and (i == 3 or i == 8)):
+                isCorrect = False
+                messagebox.showinfo(title = "경고", message = "전화번호가 잘못 입력되었습니다.\n다시 입력해주세요.\n'010-####-####'")
+    #Room number checking..
+    room_number_int = int(cbx_room_number.get())
+    if not (room_number_int == 1 or room_number_int == 2 or room_number_int == 3 or room_number_int == 4):
+        isCorrect == False
+        messagebox.showinfo(title = "경고", message = "방 번호가 잘못 입력되었습니다.\n다시 입력해주세요.\n'010-####-####'")
+    if isCorrect == True:
         Registering()
 def Registering():
     person_string = ""
@@ -42,6 +91,17 @@ def Registering():
     person_string += str(cbx_time_out_min.get()) + ' '
     person_string += str(cbx_room_number.get()) + '\n'
     toPerson(person_string)
+def SetAddressTuple(*args):
+    global cbx_address1, cbx_address2
+    if str(cbx_address1.get()) == '서울특별시':
+        cbx_address2 = ttk.Combobox(window, height = 15, values = addressB_tuple, font = "나눔고딕 -28")
+        cbx_address2.place(x = 710, y = 150, width=160, height=50)
+    elif str(cbx_address1.get()) == '경기도':
+        cbx_address2 = ttk.Combobox(window, height = 15, values = addressC_tuple, font = "나눔고딕 -28")
+        cbx_address2.place(x = 710, y = 150, width=160, height=50)
+    else:
+        cbx_address2 = ttk.Combobox(window, height = 15, values = addressD_tuple, font = "나눔고딕 -28")
+        cbx_address2.place(x = 710, y = 150, width=160, height=50)
 #EndRegion
 #Region Finding
 def Finding():
@@ -63,16 +123,10 @@ def Finding():
         searching_by = str(ent_filter_by_phone_number.get())
         searching_people = FilterByPhoneNumber(searching_by)
         ShowList(searching_people)
-    def FilteringAddress():
-        searching_by_array = []
-        searching_by_array.append(str(cbx_filter_by_address1.get()))
-        searching_by_array.append(str(cbx_filter_by_address2.get()))
-        searching_people = FilterByAddress(searching_by_array)
-        ShowList(searching_people)
     def FilteringTime():
         searching_by_array = []
-        searching_by_array.append(int(cbx_filter_by_address1.get()))
-        searching_by_array.append(int(cbx_filter_by_address2.get()))
+        searching_by_array.append(int(cbx_filter_by_time_hour.get()))
+        searching_by_array.append(int(cbx_filter_by_time_min.get()))
         searching_people = FilterByStay(searching_by_array)
         ShowList(searching_people)
     #Widget Create
@@ -81,9 +135,6 @@ def Finding():
     ent_filter_by_name = Entry(newWindow, width = 15, font = "나눔고딕 -28")
     btn_filter_by_phone_number = Button(newWindow, width = 20, command = FilteringPhoneNumber)
     ent_filter_by_phone_number = Entry(newWindow, width = 15, font = "나눔고딕 -28")
-    btn_filter_by_address = Button(newWindow, width = 20, command = FilteringAddress)
-    cbx_filter_by_address1 = ttk.Combobox(newWindow, height = 15, values = addressA_tuple, font = "나눔고딕 -28")
-    cbx_filter_by_address2 = ttk.Combobox(newWindow, height = 15, values = addressB_tuple, font = "나눔고딕 -28")
     btn_filter_by_stay = Button(newWindow, width = 20, command = FilteringTime)
     cbx_filter_by_time_hour = ttk.Combobox(newWindow, height = 15, values = hour_tuple, font = "나눔고딕 -28")
     cbx_filter_by_time_min = ttk.Combobox(newWindow, height = 15, values = min_tuple, font = "나눔고딕 -28")
@@ -93,9 +144,6 @@ def Finding():
     ent_filter_by_name.pack()
     btn_filter_by_phone_number.pack()
     ent_filter_by_phone_number.pack()
-    btn_filter_by_address.pack()
-    cbx_filter_by_address1.pack()
-    cbx_filter_by_address2.pack()
     btn_filter_by_stay.pack()
     cbx_filter_by_time_hour.pack()
     cbx_filter_by_time_min.pack()
@@ -103,7 +151,7 @@ def Finding():
 #EndRegion
 #Region Loading
 def Loading():
-    fileName = filedialog.askopenfilename(initaldir = '/', title = "Select file", filetypes = (("text files", "*.txt"), ("all files", "*.*")))
+    fileName = filedialog.askopenfilename(initialdir="/", title="Select file", filetypes=(("text files", "*.txt"), ("all files", "*.*")))
     person_strings = LoadFile(fileName)
     for person_string in person_strings:
         toPerson(person_string)
@@ -120,15 +168,30 @@ def ShowGraph():
     circle_graph = CreateCircleGraph()
 
     def DrawBarGraph(room_list):
-        squareA = graph.create_polygon(30, 30, 40, 50, 50, 30, 40, 20, fill = '#04213a', outline = '#ffffff')
-    
+        dist = 100
+        coordinate = [0, 0, 0, 0, 0]
+        coordinate[0] = 40 #base:x
+        coordinate[1] = 200 #base:y
+        coordinate[2] = dist #distance
+        coordinate[3] = 60 #width
+        coordinate[4] = room_list[0] #height
+        squareA = graph.create_polygon(coordinate[0], coordinate[1], coordinate[0] + coordinate[3], coordinate[1], coordinate[0] + coordinate[3], coordinate[1] - coordinate[4], coordinate[0], coordinate[1] - coordinate[4], fill = '#04213a', outline = '#ffffff')
+        coordinate[0] += coordinate[2]
+        coordinate[4] = room_list[1]
+        squareB = graph.create_polygon(coordinate[0], coordinate[1], coordinate[0] + coordinate[3], coordinate[1], coordinate[0] + coordinate[3], coordinate[1] - coordinate[4], coordinate[0], coordinate[1] - coordinate[4], fill = '#04213a', outline = '#ffffff')
+        coordinate[0] += coordinate[2]
+        coordinate[4] = room_list[2]
+        squareC = graph.create_polygon(coordinate[0], coordinate[1], coordinate[0] + coordinate[3], coordinate[1], coordinate[0] + coordinate[3], coordinate[1] - coordinate[4], coordinate[0], coordinate[1] - coordinate[4], fill = '#04213a', outline = '#ffffff')
+        coordinate[0] += coordinate[2]
+        coordinate[4] = room_list[3]
+        squareD = graph.create_polygon(coordinate[0], coordinate[1], coordinate[0] + coordinate[3], coordinate[1], coordinate[0] + coordinate[3], coordinate[1] - coordinate[4], coordinate[0], coordinate[1] - coordinate[4], fill = '#04213a', outline = '#ffffff')
+  
     def DrawLineGraph(time_zone_list):
         max = time_zone_list[0]
         for time_zone in time_zone_list:
             if max < time_zone:
                 max = time_zone
         top = (max // 10 + 1) * 10
-
 
     def DrawCircleGraph(age_zone_list):
         new_age_zone = []
@@ -138,38 +201,40 @@ def ShowGraph():
         for age_zone in age_zone_list:
             new_age_zone.append(age_zone / sum_age_zone)
 
-    graph = Canvas(window, relief = "solid", bd = 1, bg = '#ffffff')
-    graph.pack()
+    graph = Canvas(window, relief = "solid", bd = 0, bg = '#ffffff')
+
+    DrawBarGraph(bar_graph)
+    graph.pack(side = "bottom", fill = "x")
     #Method
     
 #EndRegion
 #Region Widget Create
 #lbl: label, ent: entry, cbx: combobox, btn: button
-lbl_name = Label(window, text = "이름", width = 4, height = 1, font = "나눔고딕 -28", anchor="sw")
+lbl_name = Label(window, text = "이름", width = 4, height = 1, bg = "#ffffff", font = "나눔고딕 -28", anchor="sw")
 ent_name = Entry(window, width = 15, font = "나눔고딕 -28")
-lbl_age = Label(window, text = "나이", width = 4, height = 1, font = "나눔고딕 -28", anchor="sw")
+lbl_age = Label(window, text = "나이", width = 4, height = 1, bg = "#ffffff", font = "나눔고딕 -28", anchor="sw")
 cbx_age = ttk.Combobox(window, height = 15, values = age_tuple, font = "나눔고딕 -28")
-lbl_gender = Label(window, text = "성별", width = 4, height = 1, font = "나눔고딕 -28", anchor="sw")
+lbl_gender = Label(window, text = "성별", width = 4, height = 1, bg = "#ffffff", font = "나눔고딕 -28", anchor="sw")
 cbx_gender = ttk.Combobox(window, height = 15, values = gender_tuple, font = "나눔고딕 -28")
-lbl_address = Label(window, text = "주소", width = 4, height = 1, font = "나눔고딕 -28", anchor="sw")
+lbl_address = Label(window, text = "주소", width = 4, height = 1, bg = "#ffffff", font = "나눔고딕 -28", anchor="sw")
 cbx_address1 = ttk.Combobox(window, height = 15, values = addressA_tuple, font = "나눔고딕 -28")
 cbx_address2 = ttk.Combobox(window, height = 15, values = addressB_tuple, font = "나눔고딕 -28")
-lbl_time_in = Label(window, text = "입장 시간", width = 8, height = 1, font = "나눔고딕 -27", anchor="sw")
+lbl_time_in = Label(window, text = "입장 시간", width = 8, height = 1, bg = "#ffffff", font = "나눔고딕 -27", anchor="sw")
 cbx_time_in_hour = ttk.Combobox(window, height = 15, values = hour_tuple, font = "나눔고딕 -28")
-lbl_cl1 = Label(window, text = ":", width = 4, height = 1, font = "나눔고딕 -28", anchor="center")
+lbl_cl1 = Label(window, text = ":", width = 4, height = 1, bg = "#ffffff", font = "나눔고딕 -28", anchor="center")
 cbx_time_in_min = ttk.Combobox(window, height = 15, values = min_tuple, font = "나눔고딕 -28")
-lbl_time_out = Label(window, text = "퇴장 시간", width = 8, height = 1, font = "나눔고딕 -27", anchor="sw")
-lbl_water = Label(window, text = "~", width = 4, height = 1, font = "나눔고딕 -28", anchor="center")
-lbl_cl2 = Label(window, text = ":", width = 4, height = 1, font = "나눔고딕 -28", anchor="center")
+lbl_time_out = Label(window, text = "퇴장 시간", width = 8, height = 1, bg = "#ffffff", font = "나눔고딕 -27", anchor="sw")
+lbl_water = Label(window, text = "~", width = 4, height = 1, bg = "#ffffff", font = "나눔고딕 -28", anchor="center")
+lbl_cl2 = Label(window, text = ":", width = 4, height = 1, bg = "#ffffff", font = "나눔고딕 -28", anchor="center")
 cbx_time_out_hour = ttk.Combobox(window, height = 15, values = hour_tuple, font = "나눔고딕 -28")
 cbx_time_out_min = ttk.Combobox(window, height = 15, values = min_tuple, font = "나눔고딕 -28")
 
-lbl_phone_number = Label(window, text = "전화번호", width = 8, height = 1, font = "나눔고딕 -28", anchor="sw")
+lbl_phone_number = Label(window, text = "전화번호", width = 8, height = 1, bg = "#ffffff", font = "나눔고딕 -28", anchor="sw")
 ent_phone_number = Entry(window, width = 15, font = "나눔고딕 -28")
-lbl_room_number = Label(window, text = "방 번호", width = 4, height = 1, font = "나눔고딕 -28", anchor="sw")
+lbl_room_number = Label(window, text = "방 번호", width = 4, height = 1, bg = "#ffffff", font = "나눔고딕 -28", anchor="sw")
 cbx_room_number = ttk.Combobox(window, height = 15, values = room_tuple, font = "나눔고딕 -28")
 
-btn_register = Button(window, text = "등록하기", font = "나눔고딕 -27",width = 20, command = CheckPhoneNumber)
+btn_register = Button(window, text = "등록하기", font = "나눔고딕 -27",width = 20, command = CheckError)
 btn_find = Button(window, text = "대상 찾기", font = "나눔고딕 -27",width = 20, command = Finding)
 btn_load = Button(window, text = "불러오기", font = "나눔고딕 -27",width = 20, command = Loading)
 btn_save = Button(window, text = "저장하기", font = "나눔고딕 -27",width = 20, command = Saving)
@@ -216,6 +281,6 @@ btn_load.place(x = 1030, y = 275, width=150, height=75)
 
 #1F
 #temp
-btn_graph.place(x = 960, y = 250, width=150, height=50)
+btn_graph.place(x = 500, y = 500, width=300, height=90)
 #EndRegion
 window.mainloop()
