@@ -1,25 +1,23 @@
-from FileIO import TimeSet
-
-initTime = 10
-
-def CreateBarGraph(personList):
+from FileIO import Person, people
+init_time = 10
+def CreateBarGraph():
+    global people
     room = [0, 0, 0, 0]
-    for p in personList:
-        room[p.roomNumber - 1] += 1
+    for person in people:
+        room[person.room_number - 1] += 1
     return room
-
-def CreateLineGraph(personList):
-    global initTime
-    timeZone = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    for p in personList:
-        timeList = FuncTime(p)
-        if timeList[0] != timeList[2]:
-            timeZone[timeList[2] - initTime] += 1 #if initTime is 10, than timeList[0], timeList[2] is more than 10. min value of timeList[0] - initTime should be same with 0.
-        timeZone[timeList[0] - initTime] += 1
-    return timeZone
-
-def CreateCircleGraph(personList):
-    ageZone = [0, 0, 0, 0, 0, 0, 0, 0]
-    for p in personList:
-        ageZone[p.age // 10 - 1] += 1 # p.age: 10~80, if p is teenager/twenties, than the index of ageZone would be 0/1.
-    return ageZone
+def CreateLineGraph():
+    global people, init_time
+    time_zone = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    for person in people:
+        person_time = person.timeToList()
+        if person_time[0] != person_time[2]:
+            time_zone[person_time[2] - init_time] += 1 #if init_time is 10, than person_time[0], person_time[2] is more than 10. min value of person_time[0] - init_time should be same with 0.
+        time_zone[person_time[0] - init_time] += 1
+        return time_zone
+def CreateCircleGraph():
+    global people
+    age_zone = [0, 0, 0, 0, 0, 0, 0, 0]
+    for person in people:
+        age_zone[person.age // 10 - 1] += 1 #person.age: 10-80, if person is teenager/twenties, than the index of age_zone would be 0/1.
+    return age_zone

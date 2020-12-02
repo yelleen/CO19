@@ -9,7 +9,7 @@ window.title("CO19")
 window.geometry("1280x720")
 window.resizable(False, False)
 
-fileName = ""
+#fileName = "" 나중에 없애기 -> 리팩토링: Get(), Set()
 People = []
 pe = []
 phoneCorrect = True
@@ -81,7 +81,7 @@ entryAge = Entry(window, width = 15, font = "나눔바른고딕 -28")
 
 genderValue = gender
 labelGender = Label(window, text = "성별", width = 4, height = 1, font = "나눔바른고딕 -28", anchor="nw")
-comboboxGender = ttk.Combobox(window, height = 15, values = genderValue, font = "나눔바른고딕 -28")
+comboboxGender = ttk.Combobox()
 
 labelPhoneNumber = Label(window, text = "전화번호", width = 8, height = 1, font = "나눔바른고딕 -28", anchor="nw")
 entryPhoneNumber = Entry(window, width = 15, font = "나눔바른고딕 -28")
