@@ -77,6 +77,7 @@ def CheckError():
         messagebox.showinfo(title = "경고", message = "방 번호가 잘못 입력되었습니다.\n다시 입력해주세요.\n'010-####-####'")
     if isCorrect == True:
         Registering()
+        
 def Registering():
     person_string = ""
     person_string += str(ent_name.get()) + ' '
@@ -107,7 +108,7 @@ def SetAddressTuple(*args):
 def Finding():
     newWindow = Toplevel(window)
     newWindow.title("Searching")
-    newWindow.geometry("1280x720")
+    newWindow.geometry("853x480")
     newWindow.resizable(False, False)
     #Method
     def ShowList(people):
@@ -136,11 +137,11 @@ def Finding():
     btn_filter_by_phone_number = Button(newWindow, width = 20, command = FilteringPhoneNumber)
     ent_filter_by_phone_number = Entry(newWindow, width = 15, font = "나눔고딕 -28")
     btn_filter_by_stay = Button(newWindow, width = 20, command = FilteringTime)
-    cbx_filter_by_time_hour = ttk.Combobox(newWindow, height = 15, values = hour_tuple, font = "나눔고딕 -28")
-    cbx_filter_by_time_min = ttk.Combobox(newWindow, height = 15, values = min_tuple, font = "나눔고딕 -28")
+    cbx_filter_by_time_hour = ttk.Combobox(newWindow, height = 15, values = hour_tuple, font = "나눔고딕 -28", state="readonly")
+    cbx_filter_by_time_min = ttk.Combobox(newWindow, height = 15, values = min_tuple, font = "나눔고딕 -28", state="readonly")
     lbx_people = Listbox(newWindow, selectmode = 'extended', height = 0)
     #Widget Place
-    btn_filter_by_name.pack()
+    btn_filter_by_name.place(x = 50, y = 300, width=250, height=50)
     ent_filter_by_name.pack()
     btn_filter_by_phone_number.pack()
     ent_filter_by_phone_number.pack()
@@ -213,26 +214,26 @@ def ShowGraph():
 lbl_name = Label(window, text = "이름", width = 4, height = 1, bg = "#ffffff", font = "나눔고딕 -28", anchor="sw")
 ent_name = Entry(window, width = 15, font = "나눔고딕 -28")
 lbl_age = Label(window, text = "나이", width = 4, height = 1, bg = "#ffffff", font = "나눔고딕 -28", anchor="sw")
-cbx_age = ttk.Combobox(window, height = 15, values = age_tuple, font = "나눔고딕 -28")
+cbx_age = ttk.Combobox(window, height = 15, values = age_tuple, font = "나눔고딕 -28", state="readonly")
 lbl_gender = Label(window, text = "성별", width = 4, height = 1, bg = "#ffffff", font = "나눔고딕 -28", anchor="sw")
-cbx_gender = ttk.Combobox(window, height = 15, values = gender_tuple, font = "나눔고딕 -28")
+cbx_gender = ttk.Combobox(window, height = 15, values = gender_tuple, font = "나눔고딕 -28", state="readonly")
 lbl_address = Label(window, text = "주소", width = 4, height = 1, bg = "#ffffff", font = "나눔고딕 -28", anchor="sw")
-cbx_address1 = ttk.Combobox(window, height = 15, values = addressA_tuple, font = "나눔고딕 -28")
-cbx_address2 = ttk.Combobox(window, height = 15, values = addressB_tuple, font = "나눔고딕 -28")
+cbx_address1 = ttk.Combobox(window, height = 15, values = addressA_tuple, font = "나눔고딕 -28", state="readonly")
+cbx_address2 = ttk.Combobox(window, height = 15, values = addressB_tuple, font = "나눔고딕 -28", state="readonly")
 lbl_time_in = Label(window, text = "입장 시간", width = 8, height = 1, bg = "#ffffff", font = "나눔고딕 -27", anchor="sw")
-cbx_time_in_hour = ttk.Combobox(window, height = 15, values = hour_tuple, font = "나눔고딕 -28")
+cbx_time_in_hour = ttk.Combobox(window, height = 15, values = hour_tuple, font = "나눔고딕 -28", state="readonly")
 lbl_cl1 = Label(window, text = ":", width = 4, height = 1, bg = "#ffffff", font = "나눔고딕 -28", anchor="center")
-cbx_time_in_min = ttk.Combobox(window, height = 15, values = min_tuple, font = "나눔고딕 -28")
+cbx_time_in_min = ttk.Combobox(window, height = 15, values = min_tuple, font = "나눔고딕 -28", state="readonly")
 lbl_time_out = Label(window, text = "퇴장 시간", width = 8, height = 1, bg = "#ffffff", font = "나눔고딕 -27", anchor="sw")
 lbl_water = Label(window, text = "~", width = 4, height = 1, bg = "#ffffff", font = "나눔고딕 -28", anchor="center")
 lbl_cl2 = Label(window, text = ":", width = 4, height = 1, bg = "#ffffff", font = "나눔고딕 -28", anchor="center")
-cbx_time_out_hour = ttk.Combobox(window, height = 15, values = hour_tuple, font = "나눔고딕 -28")
-cbx_time_out_min = ttk.Combobox(window, height = 15, values = min_tuple, font = "나눔고딕 -28")
+cbx_time_out_hour = ttk.Combobox(window, height = 15, values = hour_tuple, font = "나눔고딕 -28", state="readonly")
+cbx_time_out_min = ttk.Combobox(window, height = 15, values = min_tuple, font = "나눔고딕 -28", state="readonly")
 
 lbl_phone_number = Label(window, text = "전화번호", width = 8, height = 1, bg = "#ffffff", font = "나눔고딕 -28", anchor="sw")
 ent_phone_number = Entry(window, width = 15, font = "나눔고딕 -28")
 lbl_room_number = Label(window, text = "방 번호", width = 4, height = 1, bg = "#ffffff", font = "나눔고딕 -28", anchor="sw")
-cbx_room_number = ttk.Combobox(window, height = 15, values = room_tuple, font = "나눔고딕 -28")
+cbx_room_number = ttk.Combobox(window, height = 15, values = room_tuple, font = "나눔고딕 -28", state="readonly")
 
 btn_register = Button(window, text = "등록하기", font = "나눔고딕 -27",width = 20, command = CheckError)
 btn_find = Button(window, text = "대상 찾기", font = "나눔고딕 -27",width = 20, command = Finding)
